@@ -21,7 +21,7 @@ public class funcProcess {
         String activecode = "";
         try {
             //
-            String pathname = "./"+Constant.txt_string; //
+            String pathname = "C:\\Users\\zsq\\Desktop\\test\\grpc_test_jar_dp\\" + Constant.txt_string; //
             File filename = new File(pathname); //
             InputStreamReader reader = new InputStreamReader(new FileInputStream(filename),"gbk"); //
             BufferedReader br = new BufferedReader(reader); //
@@ -199,17 +199,33 @@ public class funcProcess {
         return data;
     }
 
-    public String get_res_iccid(String resdata){
-        String data = "";
-        int index;
-        if(resdata.equalsIgnoreCase("None")){
-            data = "None";
-            return data;
+    public String get_res_iccid(String resdata) {
+        if (resdata == null || resdata.equalsIgnoreCase("None")) {
+            return "None";
         }
-        index = resdata.indexOf("iccid");
-        data = resdata.substring(index+6, index+26);
 
-        return data;
+        int index = resdata.indexOf("iccid");
+        if (index == -1) {
+            return "None";  // 如果没有找到 "iccid"，返回 "None"
+        }
+
+        // 找到 "iccid" 后，获取后续的部分内容
+        int startIndex = index + 6;  // 6 是 "iccid:" 或 "iccid=" 后的偏移量
+        if (startIndex >= resdata.length()) {
+            return "None";  // 如果 startIndex 超出了 resdata 的长度，返回 "None"
+        }
+
+        // 尝试找到 ICCID 的结束位置，假设 ICCID 是 20 位数字
+        int endIndex = Math.min(startIndex + 20, resdata.length());
+
+        String iccid = resdata.substring(startIndex, endIndex).trim();
+
+        // 检查提取的字符串是否符合 ICCID 的预期格式
+        if (iccid.length() == 20 && iccid.matches("\\d+")) {
+            return iccid;
+        }
+
+        return "None";  // 如果提取的 ICCID 无效，返回 "None"
     }
 
     public boolean get_res_profile_status(String resdata){

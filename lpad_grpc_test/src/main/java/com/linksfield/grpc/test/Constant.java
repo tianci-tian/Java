@@ -1,7 +1,7 @@
 package com.linksfield.grpc.test;
 
 public class Constant {
-	public static final int TEST_TYPE = 1;       //0:DP+;  1:EIM
+	public static final int TEST_TYPE = 0;       //0:DP+;  1:EIM
 	//bat路径
 	public static final String FilePath_dp = "D:/LPA_Client/lpad-client-dp/bin/lpad-client.bat";
 	public static final String FilePath_eim = "D:/LPA_Client/lpad_client/bin/lpad-tool.bat";
